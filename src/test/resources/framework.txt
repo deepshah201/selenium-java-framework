@@ -1,0 +1,112 @@
+1 )Devlopment of Hybrid Driven Framework
+
+1.1 Create BasePage uder 'PageObjects' which includes only constructor. This will be invoked by every Page Object Class constructor.
+
+1.2 Create Page Object Class for HomePage, RegistrationPage under pageObjects package.(These classes extends from BasePae)
+
+1.3 Create AccountRegistrationTest under 'testCases'.
+
+1.4 Create BaseClass under testBase package and copy re-usable methods.
+
+1.5 Create re-usable methods to generate random numbers and strings in BaseClass.
+
+2) Adding Logs to test case (Log4j2)
+
+2.1 Add log4j2.xml file under src/test/resource.
+
+2.2 Update BaseClass.
+
+2.3 Add log statements to AccountRegistrationTest.
+
+3) Run Tests on Desired Browser/Cross Browser/Parallel
+
+3.1 Create a testng.xml file to run test cases and parameterize browser name and OS to BaseClass->setup() methods.
+
+3.2 Update BaseClass->setup() methods,launch browser bases on conditions.
+
+3.3 Maintain separate xml to run tests multiple browser parallelly.
+
+4) Read Common values from config.properties file.
+
+4.1 Add config.properties file under src/test/resource.
+
+4.2 Update BaseClass->setup() method, add script to load config.properties file.
+
+4.3 Replace hard coded values in test cases like url, username etc...
+
+5) Login Test Case
+
+5.1 Create and update page object classes. (LoginPage,MyAccountPage -New Classes) && Update HomePage by adding login link element.
+
+5.2 Create LoginTest.
+
+5.3 Add entry testng.xml.
+
+6) Data Driven Login Test
+
+6.1 Prepare test data in Excel ,place the excel file inside the testData folder.
+
+6.2 Create ExcelUtility class under utilities package.
+
+6.3 Update Page Object Class MyAccountPage.add logout link element.
+
+6.4 Create Dataprovider class in utilities package to maintain data providers for data driver tests.
+
+6.5 Create LoginDataDrivenTest under testCases package.
+
+6.6 Add an entry in testng.xml file.
+
+7) Grouping Tests.
+
+7.1 Add all test cases into specific group(sanity, regression, master etc.).
+
+7.2 Also add BaseClass methods setup() & teardown() to all groups.
+
+7.3 Create separate TestNG xml file (grouping.xml) to run groups and include groups which we want to execute.
+
+8) Add Extent Reports to Project 
+
+8.1 Create ExtentReportUtility utility class under utilities package.
+
+8.2 Add captureScreen() method in BaseClass.
+
+8.3 Add ExtentReportUtility (Listener class)entry in testng.xml file.
+
+8.4 Make sure WebDriver is static in BaseClass, we refer same driver instance in ExtentReportUtility.
+
+8.5 Add mail setup after completion of execution.
+
+9) Run Failed Tests.
+
+test-output ->testng-failed.xml
+
+10) Run Tests on Selenium Grid
+
+Grid Setup:
+-Download the Selenium Server jar file and place it somewhere.
+-Run below command in command prompt to start selenium grid 
+java -jar selenium-server-<version>.jar standalone
+-URL to see sessions: http://localhost:4444/
+
+10.1 Add execution_env=local/remote in config.properties file under resource folder.
+
+10.2 Update setup() method in the BaseClass(Capture execution environment from config.properties file then add required capabilities of OS & Browser in conditions).
+
+11) Run tests on Docker with Selenium Grid Environment.
+
+-> Download and install the Docker.
+->Verify installation of Docker.
+docker version
+docker-compose version
+->Download image using docker pull <image>
+->Create container using docker run <image name>
+->for start container use docker start <contaner id>
+->for start container use docker stop <contaner id>
+->for remove container use docker rm <contaner id>
+->docker images for show the downloaded images
+
+3 containers needed for automation
+1)docker pull selenium/hub
+2)docker pull selenium/node-firefox
+3)docker pull selenium/node-chrome
+
